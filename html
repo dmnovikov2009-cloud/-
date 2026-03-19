@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop: Coding with AI</title>
+    <style>
+        /* Основные переменные и сброс стилей */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #161616;
+            --accent-color: #00ff88;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Контейнер-визитка */
+        .card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid #222;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Заголовок и текст */
+        h1 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            letter-spacing: -0.5px;
+        }
+
+        .info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .info-item {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        .info-item strong {
+            color: var(--text-main);
+        }
+
+        /* Кнопка и анимация */
+        .btn-container {
+            position: relative;
+            min-height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #registerBtn {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            text-transform: uppercase;
+        }
+
+        #registerBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
+
+        #registerBtn.success {
+            background-color: transparent;
+            color: var(--accent-color);
+            cursor: default;
+            font-size: 1.2rem;
+        }
+
+        /* Скрытая по умолчанию галочка */
+        .checkmark {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 3;
+            stroke: var(--accent-color);
+            stroke-miterlimit: 10;
+            margin: 10px auto;
+            box-shadow: inset 0px 0px 0px var(--accent-color);
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+            opacity: 0;
+        }
+
+        .checkmark.visible {
+            opacity: 1;
+            display: inline-block;
+        }
+
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        /* Ключевые кадры анимаций */
+        @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+        @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+
+        /* Адаптивность */
+        @media (max-width: 480px) {
+            .card { padding: 1.5rem; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="card">
+        <header>
+            <h1>Workshop: Coding with AI</h1>
+        </header>
+
+        <section class="info-block">
+            <p class="info-item">📅 Дата: <strong>25 октября</strong></p>
+            <p class="info-item">📍 Место: <strong>Технопарк</strong></p>
+        </section>
+
+        <div class="btn-container">
+            <button id="registerBtn">Подтвердить участие</button>
+            
+            <svg id="successCheck" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="display: none;">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+        </div>
+    </main>
+
+    <script>
+        const btn = document.getElementById('registerBtn');
+        const check = document.getElementById('successCheck');
+
+        btn.addEventListener('click', () => {
+            // Прячем текст кнопки и меняем её состояние
+            btn.style.opacity = '0';
+            
+            setTimeout(() => {
+                btn.textContent = 'Регистрация успешна';
+                btn.classList.add('success');
+                btn.style.opacity = '1';
+                
+                // Показываем и запускаем анимацию галочки
+                check.style.display = 'block';
+                check.classList.add('visible');
+                
+                // Деактивируем кнопку
+                btn.disabled = true;
+            }, 300);
+        });
+    </script>
+
+</body>
+</html>
